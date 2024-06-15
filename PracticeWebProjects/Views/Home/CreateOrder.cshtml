@@ -1,0 +1,51 @@
+﻿@model DishFromViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="~/css/OrderForm.css" />
+}
+
+<div class="form-container">
+    <div class="form-header" onclick="toggleForm()">
+        <h2>Click to Open Form</h2>
+    </div>
+    <div class="form-content" id="formContent">
+        @using (Html.BeginForm("CreateOrder", "Home", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                @Html.LabelFor(m => m.Name)
+                @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Name)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Cost)
+                @Html.TextBoxFor(m => m.Cost, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Cost)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.DishTypeId)
+                @Html.TextBoxFor(m => m.DishTypeId, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.DishTypeId)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.IsServed)
+                @Html.CheckBoxFor(m => m.IsServed, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.IsServed)
+            </div>
+            <div class="form-group">
+                @Html.Label("DishChefs", "Dish Chefs (separate names with ', ')")
+                @Html.TextBoxFor(m => m.DishChefs, new { @class = "form-control", placeholder = "Enter chef names separated by comma" })
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        }
+    </div>
+</div>
+
+<script src="~/js/FormScript.js">
+    
+</script>

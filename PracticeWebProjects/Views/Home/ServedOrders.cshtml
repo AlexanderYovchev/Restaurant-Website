@@ -1,0 +1,72 @@
+﻿@model IEnumerable<ServedDishesInfoViewModel>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewBag.Title = "Served Orders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="~/css/RandomPageStyle.css" />
+}
+
+<style>
+    body {
+        background-color:cornflowerblue;
+    }
+</style>
+
+<div class="jumbotron">
+    <h1 class="shine">@ViewBag.Title</h1> <!-- Add your h1 here -->
+</div>
+
+<div class="container row-cols-3" style="background-color:deepskyblue; border-radius:10px">
+    @{
+        foreach (var order in Model)
+        {
+            if (order.IsServed == false)
+            {
+                
+            }
+
+            else
+            {
+                <div class="containersInLoop shadow w-100 d-flex flex-column p-3" style=" border-color:aquamarine; border-style:dashed;
+                                        font-family:'French Script MT'; border-radius:10px">
+                    @{
+                        foreach (var chef in order.DishChefs)
+                        {
+                            <div class="containerForChefs shadow w-100 d-flex flex-column p-3">
+                                <h2 class="chefNames" style="font-size:40px;">@chef.ChefName</h2>
+                            </div>
+
+
+                        }
+                    }
+
+                    <svg class="containerBreakingLine" height="20" width="100%" viewBox="0 0 200 10" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                        <polyline class="polylineClass" points="0,10 5,0 10,10 15,0 20,10 25,0 30,10 35,0 40,10 45,0 50,10 55,0 60,10 65,0 70,10 75,0 80,10 85,0 90,10 95,0 100,10 105,0 110,10
+                                                        115,0 120,10 125,0 130,10 135,0 140,10 145,0 150,10 155,0 160,10 165,0 170,10 175,0 180,10 185,0 190,10 195,0 200,10" style="fill:none;stroke:aqua;stroke-width:1;" />
+                    </svg>
+
+
+                    <span class="flex-row classForContainerDescription">Dish number: @order.Id</span>
+                    <span class="flex-row classForContainerDescription">Dish name: @order.Name</span>
+                    <span class="flex-row classForContainerDescription">Dish Cost: @order.Cost leva / @(order.Cost / 2) EUR</span>
+                    <span class="flex-row classForContainerDescription">Dish type: @order.DishType</span>
+
+
+                    <div class="text-end containerForButtons">
+                        <a class="btn btn-primary buttonsForLoopContainer" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">Back</a>
+                    </div>
+                </div>
+                <br />
+            }
+
+            
+            
+        };
+    }
+    
+</div>

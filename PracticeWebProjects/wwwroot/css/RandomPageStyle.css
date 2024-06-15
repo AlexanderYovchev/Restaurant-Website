@@ -1,0 +1,103 @@
+﻿body{
+    background-color:darkblue;
+}
+
+.container {
+    background-color: deepskyblue;
+    border-radius: 10px;
+    padding: 20px;
+    
+}
+
+.item {
+    border: groove;
+    border-color: aquamarine;
+    border-style: dashed;
+    font-family: 'French Script MT';
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: space-evenly;
+    align-content: flex-start;
+    margin-bottom: 1rem;
+}
+
+.chefNames {
+    align-self: center;
+    justify-self:center;
+}
+
+.containersInLoop {
+    transition: all 0.3s ease; /* Smooth transition for the hover effect */
+    display: flex;
+    justify-content: space-around;
+    overflow: hidden; /* Hide overflowing content */
+    position: relative;
+    height: 100px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.containersInLoop:hover {
+    width: 250px; /* New width on hover */
+    height: auto; /* New height on hover */
+    background-color: whitesmoke; /* Change background color on hover */
+}
+
+.containersInLoop:hover .classForContainerDescription {
+    display: block; /* Show the description on hover */
+}
+
+
+.containerForChefs {
+    border:none;
+    border-radius:20px;
+}
+
+.containersInLoop:hover .containerForChefs {
+    display: flex;
+    margin: 5px;
+    background-color: lightyellow;
+}
+
+.containerBreakingLine {
+    padding: 5px;
+    margin: 15px;
+}
+
+.containerForButtons {
+    align-self: end;
+    justify-self:initial;
+    margin-top: auto; /* Push the button to the bottom */
+}
+
+.classForContainerDescription {
+    display: none; /* Hide the description initially */
+    font-family: 'Times New Roman', Times, serif;
+    font-style:italic;
+    margin-top: 10px;
+}
+.buttonsForLoopContainer {
+    display: inline-flex;
+    justify-items: end;
+    justify-content: end;
+}
+
+h1.shine {
+    font-size: 3em;
+    color: #0000FF;
+    text-align: center;
+    background: linear-gradient(131deg, rgb(115 219 181 / 75%) 0%, rgb(44 121 68 / 61%) 50%, rgb(130 48 159 / 79%) 51%, rgb(139 19 19 / 85%) 100%); 
+    background-repeat: repeat;
+    background-size: 200%;
+    animation: shine 2s infinite linear;
+}
+
+@keyframes shine {
+    from {
+        background-position: -200% center;
+    }
+
+    to {
+        background-position: 200% center;
+    }
+}

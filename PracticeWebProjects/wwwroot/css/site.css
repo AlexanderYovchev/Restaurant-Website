@@ -1,0 +1,24 @@
+html {
+  font-size: 14px;
+}
+
+body {
+    background: url('/images/Designer.jpeg') no-repeat center center fixed;
+    background-size:cover;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
