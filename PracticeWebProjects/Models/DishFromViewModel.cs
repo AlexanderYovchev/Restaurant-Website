@@ -22,12 +22,11 @@ namespace PracticeWebProjects.Models
         public int DishTypeId { get; set; }
 
         [Required]
-        [ForeignKey(nameof(DishTypeId))]
-        public DishType DishType { get; set; } = null!;
+        public string DishType { get; set; } = string.Empty;
 
         [Required]
         public bool IsServed { get; set; } = false;
 
-        public string DishChefs { get; set; } = string.Empty;
+        public ICollection<DishChefsViewModel> DishChefs { get; set; } = new List<DishChefsViewModel>();
     }
 }

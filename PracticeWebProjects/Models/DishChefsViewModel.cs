@@ -4,9 +4,12 @@ namespace PracticeWebProjects.Models
 {
     public class DishChefsViewModel
     {
-        [StringLength(chefNameMaxLength, MinimumLength = chefNameMinLength,ErrorMessage = "Chef {0} must be between {2} and {1} characters long.")]
+        [StringLength(chefNameMaxLength, MinimumLength = chefNameMinLength,
+            ErrorMessage = "Chef {0} must be between {2} and {1} characters long.")]
         public string ChefName { get; set; } = string.Empty;
 
+        [StringLength(dishNameMaxLength, MinimumLength = dishNameMinLength, 
+            ErrorMessage = "Dish {0} must be between {2} and {1} characters long.")]
         public string DishName { get; set; } = string.Empty;
     }
 }
