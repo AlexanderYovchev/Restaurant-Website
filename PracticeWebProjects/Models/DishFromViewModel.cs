@@ -28,6 +28,6 @@ namespace PracticeWebProjects.Models
         [Required]
         public bool IsServed { get; set; } = false;
 
-        public ICollection<DishChef> DishChefs { get; set; } = new List<DishChef>();
+        public string DishChefs { get; set; } = string.Empty;
     }
 }

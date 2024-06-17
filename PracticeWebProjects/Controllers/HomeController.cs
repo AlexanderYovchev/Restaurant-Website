@@ -42,20 +42,33 @@ namespace PracticeWebProjects.Controllers
                 var dish = new Dish
                 {
                     Name = model.Name,
-                    DishType = model.DishType,
+                    DishTypeId = model.DishTypeId,
                     Cost = model.Cost,
                     IsServed = model.IsServed
                 };
 
+                // Process the DishChefs field
+                if (!string.IsNullOrEmpty(model.DishChefs))
+                {
+                    var chefNames = model.DishChefs.Split(new[] { ", " }, System.StringSplitOptions.RemoveEmptyEntries);
+                    foreach (var name in chefNames)
+                    {
+                        var chef = context.Chefs.SingleOrDefault(c => c.Name == name) ?? new Chef { Name = name };
+                        dish.DishChefs.Add(new DishChef { Chef = chef });
+                    }
+                }
+
                 context.Dishes.Add(dish);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
 
                 return RedirectToAction(nameof(AwaitingOrders));
+
+
             }
 
+            ViewData["DishTypes"] = new SelectList(context.DishTypes, "Id", "Name", model.DishTypeId);
             return View(model);
 
-            
         }
 
         [HttpGet]
