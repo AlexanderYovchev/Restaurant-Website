@@ -35,7 +35,7 @@ namespace PracticeWebProjects.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> CreateOrder(ServedDishesInfoViewModel model)
+        public async Task<IActionResult> CreateOrder(DishFromViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -53,64 +53,66 @@ namespace PracticeWebProjects.Controllers
                 return RedirectToAction(nameof(AwaitingOrders));
             }
 
+            return View(model);
 
+            
+        }
 
-            [HttpGet]
-            public async Task<IActionResult> AwaitingOrders()
-            {
-                var model = await context.Dishes
-                    .Select(d => new ServedDishesInfoViewModel
+        [HttpGet]
+        public async Task<IActionResult> AwaitingOrders()
+        {
+            var model = await context.Dishes
+                .Select(d => new ServedDishesInfoViewModel
+                {
+                    Id = d.Id,
+                    Name = d.Name,
+                    Cost = d.Cost,
+                    DishType = d.DishType.Name,
+                    IsServed = d.IsServed,
+                    DishChefs = d.DishChefs.Select(dc => new DishChefsViewModel()
                     {
-                        Id = d.Id,
-                        Name = d.Name,
-                        Cost = d.Cost,
-                        DishType = d.DishType.Name,
-                        IsServed = d.IsServed,
-                        DishChefs = d.DishChefs.Select(dc => new DishChefsViewModel()
-                        {
-                            ChefName = dc.Chef.Name,
-                            DishName = dc.Dish.Name,
+                        ChefName = dc.Chef.Name,
+                        DishName = dc.Dish.Name,
 
-                        }).ToList()
-                    })
-                    .AsNoTracking()
-                    .ToListAsync();
+                    }).ToList()
+                })
+                .AsNoTracking()
+                .ToListAsync();
 
-                return View(model);
-            }
+            return View(model);
+        }
 
 
-            [HttpGet]
-            public async Task<IActionResult> ServedOrders()
-            {
-                var model = await context.Dishes
-                    .Select(d => new ServedDishesInfoViewModel
+        [HttpGet]
+        public async Task<IActionResult> ServedOrders()
+        {
+            var model = await context.Dishes
+                .Select(d => new ServedDishesInfoViewModel
+                {
+                    Id = d.Id,
+                    Name = d.Name,
+                    Cost = d.Cost,
+                    DishType = d.DishType.Name,
+                    IsServed = d.IsServed,
+                    DishChefs = d.DishChefs.Select(dc => new DishChefsViewModel()
                     {
-                        Id = d.Id,
-                        Name = d.Name,
-                        Cost = d.Cost,
-                        DishType = d.DishType.Name,
-                        IsServed = d.IsServed,
-                        DishChefs = d.DishChefs.Select(dc => new DishChefsViewModel()
-                        {
-                            ChefName = dc.Chef.Name,
-                            DishName = dc.Dish.Name,
+                        ChefName = dc.Chef.Name,
+                        DishName = dc.Dish.Name,
 
-                        }).ToList()
-                    })
-                    .AsNoTracking()
-                    .ToListAsync();
+                    }).ToList()
+                })
+                .AsNoTracking()
+                .ToListAsync();
 
-                return View(model);
-            }
+            return View(model);
+        }
 
 
 
-            [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-            public IActionResult Error()
-            {
-                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-            }
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
