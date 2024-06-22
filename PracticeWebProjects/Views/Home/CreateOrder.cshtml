@@ -27,20 +27,23 @@
                 @Html.TextBoxFor(m => m.Cost, new { @class = "form-control" })
                 @Html.ValidationMessageFor(m => m.Cost)
             </div>
+
             <div class="form-group">
-                @Html.LabelFor(m => m.DishTypeId)
-                @Html.TextBoxFor(m => m.DishTypeId, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.DishTypeId)
+                @Html.LabelFor(model => model.DishTypeId, "Dish Type", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.DishTypeId, (SelectList)ViewData["DishTypes"], "Select Dish Type", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DishTypeId, "", new { @class = "text-danger" })
+                </div>
             </div>
+
             <div class="form-group">
-                @Html.LabelFor(m => m.IsServed)
-                @Html.CheckBoxFor(m => m.IsServed, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.IsServed)
+                @Html.LabelFor(model => model.SelectedChefIds, "Chefs", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.ListBoxFor(model => model.SelectedChefIds, (SelectList)ViewData["Chefs"], new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SelectedChefIds, "", new { @class = "text-danger" })
+                </div>
             </div>
-            <div class="form-group">
-                @Html.Label("DishChefs", "Dish Chefs (separate names with ', ')")
-                @Html.TextBoxFor(m => m.DishChefs, new { @class = "form-control", placeholder = "Enter chef names separated by comma" })
-            </div>
+
             <button type="submit" class="btn btn-primary">Submit</button>
         }
     </div>

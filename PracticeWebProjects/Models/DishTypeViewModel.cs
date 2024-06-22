@@ -10,6 +10,6 @@ namespace PracticeWebProjects.Models
 
         [Required]
         [StringLength(dishTypeMaxLength, MinimumLength = dishTypeMinLength, ErrorMessage = "Dish {0} must be between {2} and {1} characters long.")]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
     }
 }

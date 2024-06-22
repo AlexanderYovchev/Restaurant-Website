@@ -21,12 +21,14 @@ namespace PracticeWebProjects.Models
         [Required]
         public int DishTypeId { get; set; }
 
-        [Required]
+        
         public string DishType { get; set; } = string.Empty;
 
         [Required]
         public bool IsServed { get; set; } = false;
 
         public ICollection<DishChefsViewModel> DishChefs { get; set; } = new List<DishChefsViewModel>();
+
+        public List<int> SelectedChefIds { get; set; } = new List<int>();
     }
 }

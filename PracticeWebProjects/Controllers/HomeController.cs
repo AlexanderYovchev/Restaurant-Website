@@ -5,6 +5,7 @@ using PracticeWebProjects.Data;
 using PracticeWebProjects.Data.Models;
 using PracticeWebProjects.Models;
 using System.Diagnostics;
+using System.Xml.Linq;
 
 namespace PracticeWebProjects.Controllers
 {
@@ -31,12 +32,49 @@ namespace PracticeWebProjects.Controllers
         [HttpGet]
         public IActionResult CreateOrder()
         {
+            var model = new DishFromViewModel
+            {
+                
+                DishChefs = context.Chefs.Select(c => new DishChefsViewModel
+                {
+                    ChefName = c.Name,
+                    ChefId = c.Id,
+
+                }).ToList()
+            };
+
             ViewData["DishTypes"] = new SelectList(context.DishTypes, "Id", "Name");
-            return View();
+            ViewData["Chefs"] = new SelectList(model.DishChefs, "ChefId", "ChefName");
+            return View(model);
         }
+
         [HttpPost]
         public async Task<IActionResult> CreateOrder(DishFromViewModel model)
         {
+            var dishType = await context.DishTypes.FindAsync(model.DishTypeId);
+            if (dishType != null)
+            {
+                model.DishType = dishType.Name;
+            }
+            else
+            {
+                ModelState.AddModelError("DishTypeId", "Invalid Dish Type");
+            }
+
+
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                foreach (var error in errors)
+                {
+                    Console.WriteLine(error.ErrorMessage);
+                }
+
+                ViewData["DishTypes"] = new SelectList(context.DishTypes, "Id", "Name", model.DishTypeId);
+                ViewData["Chefs"] = new SelectList(context.Chefs, "Id", "Name", model.SelectedChefIds);
+                // This will log the errors to the console or you can use other logging mechanisms
+            }
+
             if (ModelState.IsValid)
             {
                 var dish = new Dish
@@ -45,17 +83,20 @@ namespace PracticeWebProjects.Controllers
                     DishTypeId = model.DishTypeId,
                     Cost = model.Cost,
                     IsServed = model.IsServed,
-                    
+                    DishChefs = new List<DishChef>()
                 };
 
-                var chefNames = model.DishChefs.Select(dc => dc.ChefName).Split(new[] { ", " }, System.StringSplitOptions.RemoveEmptyEntries);
-                foreach (var name in chefNames)
+                foreach (var chefId in model.SelectedChefIds)
                 {
-                    var chef = context.Chefs.SingleOrDefault(c => c.Name == name) ?? new Chef { Name = name };
+                    var chef = await context.Chefs.FindAsync(chefId);
+
+                    if (chef == null)
+                    {
+                        return BadRequest();
+                    }
+
                     dish.DishChefs.Add(new DishChef { Chef = chef });
                 }
-
-                
 
                 context.Dishes.Add(dish);
                 await context.SaveChangesAsync();
@@ -65,7 +106,8 @@ namespace PracticeWebProjects.Controllers
 
             }
 
-            ViewData["DishTypes"] = new SelectList(context.DishTypes, "Id", "Name", model.DishTypeId);
+            ViewData["DishTypes"] = new SelectList(GetDishTypes(), "Id", "Name", model.DishTypeId);
+            ViewData["Chefs"] = new SelectList(context.Chefs, "Id", "Name", model.SelectedChefIds);
             return View(model);
 
         }
@@ -119,6 +161,16 @@ namespace PracticeWebProjects.Controllers
             return View(model);
         }
 
+        private IList<DishTypeViewModel> GetDishTypes()
+        {
+            var dishTypes = context.DishTypes.Select(d => new DishTypeViewModel()
+            {
+                Id = d.Id,
+                Name = d.Name,
+            }).ToList();
+
+            return dishTypes;
+        }
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
