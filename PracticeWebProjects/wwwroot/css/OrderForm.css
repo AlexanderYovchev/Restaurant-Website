@@ -32,7 +32,16 @@
     }
 
 .form-group {
-    padding: 10px;
+    
+}
+
+.form-group label {
+    font-size:16px;
+    color:gold;
+    font-weight:500;
+    font:500;
+    background-position:center;
+    background-color:darkslategray;
 }
 
 .form-control {
