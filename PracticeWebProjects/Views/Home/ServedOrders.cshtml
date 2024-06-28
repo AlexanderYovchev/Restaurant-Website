@@ -21,6 +21,16 @@
     <h1 class="shine">@ViewBag.Title</h1> <!-- Add your h1 here -->
 </div>
 
+<div>
+    <form asp-action="DeleteServedOrders">
+        <button type="submit" class="btn btn-primary buttonsForLoopContainer"
+                style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+            Clear List
+        </button>
+    </form>
+    
+</div>
+
 <div class="container row-cols-3" style="background-color:deepskyblue; border-radius:10px">
     @{
         foreach (var order in Model)

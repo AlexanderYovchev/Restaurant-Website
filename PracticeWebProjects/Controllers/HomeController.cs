@@ -132,6 +132,25 @@ namespace PracticeWebProjects.Controllers
             return RedirectToAction("ServedOrders", "Home");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteServedOrders()
+        {
+            var model = await context.Dishes
+                .Where(d => d.IsServed == true)
+                .ToListAsync();
+
+            if (!model.Any())
+            {
+                return BadRequest();
+            }
+
+            context.Dishes.RemoveRange(model);
+
+            await context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(ServedOrders));
+        }
+
         [HttpGet]
         public async Task<IActionResult> AwaitingOrders()
         {
