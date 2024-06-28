@@ -3,16 +3,23 @@
 }
 
 <div class="text-center">
-    <div class="shadow" style="height:300px; display:flexbox; align-content:center; border-radius:10px; background-color:brown">
+    <div class="shadow" style="height:300px; display:flex; justify-content:center; align-items:center; border-radius:10px; background-color:brown">
         <h1 class="display-4" style="justify-self:center; align-self:center; padding:inherit; 
         font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">Welcome</h1>
     </div>
-    <div class="containerForButton" style="height:300px; justify-content:center; align-content:center">
-        <a asp-controller="Home" asp-action="CreateOrder" 
-                class="btn btn-danger align-content-center justify-content-center p-3 m-3"
-                style="accent-color:initial; width:200px; height:200px;">
-            Add Order
-        </a>
+    <div class="containerForButton">
+        <div class="containerChefsListDisplay">
+
+        </div>
+
+        <div class="containerAddOrderButton">
+            <a asp-controller="Home" asp-action="CreateOrder"
+               class="btn btn-danger align-content-center justify-content-center p-3 m-3"
+               style="accent-color:initial; width:200px; height:200px;">
+                Add Order
+            </a>
+        </div >
+        
     </div>
     
     
