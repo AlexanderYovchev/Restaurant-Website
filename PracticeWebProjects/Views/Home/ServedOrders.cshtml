@@ -22,7 +22,7 @@
 </div>
 
 <div>
-    <form asp-action="DeleteServedOrders">
+    <form asp-action="DeleteServedOrders" onsubmit="return confirmDeletion()">
         <button type="submit" class="btn btn-primary buttonsForLoopContainer"
                 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
             Clear List
@@ -80,3 +80,7 @@
     }
     
 </div>
+
+<script src="~/js/actionConfirmation.js">
+
+</script>
