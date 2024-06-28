@@ -112,6 +112,26 @@ namespace PracticeWebProjects.Controllers
 
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var order = await context.Dishes.
+                Where(d => d.Id == id)
+                .Include(dc => dc.DishChefs)
+                .FirstOrDefaultAsync();
+
+            if (order == null || order.IsServed == true)
+            {
+                return BadRequest();
+            }
+
+            order.IsServed = true;
+
+            await context.SaveChangesAsync();
+
+            return RedirectToAction("ServedOrders", "Home");
+        }
+
         [HttpGet]
         public async Task<IActionResult> AwaitingOrders()
         {

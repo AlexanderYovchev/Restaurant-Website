@@ -21,7 +21,7 @@
     <h1 class="shine">@ViewBag.Title</h1> <!-- Add your h1 here -->
 </div>
 
-<div class="container row-cols-3" style="background-color:deepskyblue; border-radius:10px">
+<div class="container row-cols-3" style="background-color:darkslategrey; border-radius:10px">
     @{
         foreach (var order in Model)
         {
@@ -38,7 +38,7 @@
                         foreach (var chef in order.DishChefs)
                         {
                             <div class="containerForChefs shadow w-100 d-flex flex-column p-3">
-                                <h2 class="chefNames" style="font-size:40px;">@chef.ChefName</h2>
+                                <h2 class="chefNames" style="font-size:40px; color:chocolate">@chef.ChefName</h2>
                             </div>
 
 
@@ -58,7 +58,10 @@
 
 
                     <div class="text-end containerForButtons">
-                        <a class="btn btn-primary buttonsForLoopContainer" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">Serve!</a>
+                        <form asp-action="Edit" method="post">
+                            <input type="hidden" name="id" value="@order.Id" />
+                            <button type="submit" class="btn btn-primary buttonsForLoopContainer" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">Serve!</button>
+                        </form>
                     </div>
                 </div>
                 <br />
