@@ -24,15 +24,16 @@ body {
 
 /*Stylization for Home page view*/
 .containerChefsListDisplay {
-    display:block;
-    border:3px solid black;
-    background-color:white;
-
-    height:inherit;
-    width:250px;
-
-    align-self:flex-start;
-    
+    display: block;
+    border: 2px solid #ffeb3b;
+    border-color: transparent;
+    border-radius: 20px;
+    background-color: brown;
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+    height: inherit;
+    width: 250px;
+    align-self: flex-start;
 }
 
 .containerForButton {
@@ -51,7 +52,13 @@ body {
 }
 
 /*Stylization for _ChefsListDisplay partial view*/
-.containerPartialChef {
-    border-radius:20px;
-    border-color:transparent;
+.containerPartialChef #chefNameId{
+    color:white;
+    font-family:'Cambria Math';
+    font:italic;
+    font-size:20px;
+}
+
+.containerPartialChef #chefInfo {
+    color:white;
 }
