@@ -1,0 +1,18 @@
+﻿@model IEnumerable<ChefsDisplayViewModel>
+
+    <form asp-controller="Chef" asp-action="ChefsList" method="get">
+    @{
+        foreach (var chef in Model)
+        {
+            <div class="containerPartialChef">
+                <section id="chefNameId">@($"{chef.Id}: {chef.Name}")</section>
+                <br />
+                <span id="chefInfo">@($"Age: {chef.Age}")</span>
+            </div>
+
+            <hr />
+        }
+    }
+
+    </form>
+    

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using PracticeWebProjects.Data;
 using PracticeWebProjects.Data.Models;
 using PracticeWebProjects.Models;
+using PracticeWebProjects.Services;
 using System.Diagnostics;
 using System.Xml.Linq;
 
@@ -13,16 +14,19 @@ namespace PracticeWebProjects.Controllers
     {
         private readonly ILogger<HomeController> logger;
         private readonly ApplicationDbContext context;
+        private readonly ChefService chefService;
 
-        public HomeController(ILogger<HomeController> _logger, ApplicationDbContext _context)
+        public HomeController(ILogger<HomeController> _logger, ApplicationDbContext _context, ChefService _chefService)
         {
             logger = _logger;
             context = _context;
+            chefService = _chefService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var model = await chefService.GetChefsAsync();
+            return View(model);
         }
 
         public IActionResult Privacy()
@@ -72,7 +76,6 @@ namespace PracticeWebProjects.Controllers
 
                 ViewData["DishTypes"] = new SelectList(context.DishTypes, "Id", "Name", model.DishTypeId);
                 ViewData["Chefs"] = new SelectList(context.Chefs, "Id", "Name", model.SelectedChefIds);
-                // This will log the errors to the console or you can use other logging mechanisms
             }
 
             if (ModelState.IsValid)

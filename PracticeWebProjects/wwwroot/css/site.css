@@ -49,3 +49,9 @@ body {
     justify-content: center;
     flex-grow: 1;
 }
+
+/*Stylization for _ChefsListDisplay partial view*/
+.containerPartialChef {
+    border-radius:20px;
+    border-color:transparent;
+}

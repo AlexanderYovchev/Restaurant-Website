@@ -9,7 +9,8 @@ namespace PracticeWebProjects.Models
     {
         public int Id { get; set; }
 
-        [StringLength(dishNameMaxLength, MinimumLength = dishNameMinLength, ErrorMessage = "Dish {0} must be between {2} and {1} characters long.")]
+        [StringLength(dishNameMaxLength, MinimumLength = dishNameMinLength, 
+            ErrorMessage = "Dish {0} must be between {2} and {1} characters long.")]
         public string Name { get; set; } = string.Empty;
 
         public decimal Cost { get; set; }
