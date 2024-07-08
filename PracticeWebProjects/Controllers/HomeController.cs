@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.SignalR.Protocol;
 using Microsoft.EntityFrameworkCore;
 using PracticeWebProjects.Data;
 using PracticeWebProjects.Data.Models;
@@ -144,8 +145,10 @@ namespace PracticeWebProjects.Controllers
 
             if (!model.Any())
             {
-                return BadRequest();
+                return RedirectToAction("ServedOrders");
             }
+
+            
 
             context.Dishes.RemoveRange(model);
 
