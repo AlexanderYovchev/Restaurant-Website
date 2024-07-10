@@ -137,6 +137,26 @@ namespace PracticeWebProjects.Controllers
         }
 
         [HttpPost]
+        public async Task<IActionResult> RemoveAwaitingOrder(int id)
+        {
+            var order = await context.Dishes
+                .Where(d => d.Id == id)
+                .Include(dc => dc.DishChefs)
+                .FirstOrDefaultAsync();
+
+
+            if (order == null || order.IsServed == true)
+            {
+                return BadRequest();
+            }
+
+            context.Dishes.Remove(order);
+            await context.SaveChangesAsync();
+
+            return RedirectToAction("AwaitingOrders");
+        }
+
+        [HttpPost]
         public async Task<IActionResult> DeleteServedOrders()
         {
             var model = await context.Dishes

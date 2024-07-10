@@ -58,6 +58,10 @@
 
 
                     <div class="text-end containerForButtons">
+                        <form asp-action="RemoveAwaitingOrder" method="post">
+                            <input type="hidden" name="id" value="@order.Id" />
+                            <button type="submit" class="btn btn-primary buttonsForLoopContainer" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">Remove</button>
+                        </form>
                         <form asp-action="Edit" method="post">
                             <input type="hidden" name="id" value="@order.Id" />
                             <button type="submit" class="btn btn-primary buttonsForLoopContainer" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">Serve!</button>

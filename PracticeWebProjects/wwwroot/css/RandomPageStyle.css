@@ -65,6 +65,7 @@
 }
 
 .containerForButtons {
+    display:flex;
     align-self: end;
     justify-self:initial;
     margin-top: auto; /* Push the button to the bottom */
@@ -80,6 +81,7 @@
     display: inline-flex;
     justify-items: end;
     justify-content: end;
+    margin-right:10px;
 }
 
 h1.shine {
