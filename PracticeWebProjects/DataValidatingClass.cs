@@ -26,5 +26,9 @@
         public const int dishTypeMaxLength = 150;
 
         public const int dishTypeMinLength = 2;
+
+        //Sales DateTime format validation
+
+        public const string saleDateFormat = "yyyy-MM-dd";
     }
 }
