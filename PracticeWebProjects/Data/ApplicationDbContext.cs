@@ -20,6 +20,8 @@ namespace PracticeWebProjects.Data
 
         public DbSet<DishType> DishTypes { get; set; }
 
+        public DbSet<Sale> Sales { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<DishChef>().HasKey(dc => new { dc.ChefId, dc.DishId });
