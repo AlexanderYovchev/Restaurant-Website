@@ -10,9 +10,9 @@ namespace PracticeWebProjects.Controllers
     public class BudgetController : Controller
     {
         private readonly BudgetService budgetService;
-        private readonly ILogger logger;
+        private readonly ILogger<BudgetController> logger;
 
-        public BudgetController(BudgetService _budgetService, ILogger _logger)
+        public BudgetController(BudgetService _budgetService, ILogger<BudgetController> _logger)
         {
             budgetService = _budgetService;
             logger = _logger;

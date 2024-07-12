@@ -131,6 +131,14 @@ namespace PracticeWebProjects.Controllers
 
             order.IsServed = true;
 
+            Sale sale = new Sale()
+            {
+                DishId = order.Id,
+                TransactionDate = DateTime.Now,
+            };
+
+            context.Sales.Add(sale);
+
             await context.SaveChangesAsync();
 
             return RedirectToAction("ServedOrders", "Home");

@@ -1,0 +1,16 @@
+﻿@model SalesIncomeDisplayViewModel
+
+@{
+    ViewData["Title"] = "Daily Income Result";
+}
+
+
+
+<div class="dailyIncomeResultContainer">
+    <h2>Daily Income for @Model.TransactionDate.ToString("yyyy-MM-dd")</h2>
+
+    <br />
+
+    <h3>Income: @(($"{Model.Income.ToString()} Leva. / {(Model.Income / 2).ToString()} EUR."))</h3>
+</div>
+
