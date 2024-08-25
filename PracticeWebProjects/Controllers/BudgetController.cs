@@ -21,7 +21,6 @@ namespace PracticeWebProjects.Controllers
         [HttpGet]
         public IActionResult DailyIncome()
         {
-
             return View();
         }
 

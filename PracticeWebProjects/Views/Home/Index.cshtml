@@ -9,27 +9,35 @@
         <h1 class="display-4" style="justify-self:center; align-self:center; padding:inherit; 
         font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif">Welcome</h1>
     </div>
+
+    
+
+
     <div class="containerForButton">
         
         <div class="containerChefsListDisplay">
             <partial name="_ChefsListDisplay" model="Model"></partial>
         </div>
 
-        <div class="containerAddOrderButton">
-            <a asp-controller="Home" asp-action="CreateOrder"
-               class="btn btn-danger align-content-center justify-content-center p-3 m-3"
-               style="accent-color:initial; width:200px; height:200px;">
-                Add Order
-            </a>
-        </div >
+        <div id="buttonsOrder">
+            <div class="containerAddOrderButton">
+                <a asp-controller="Home" asp-action="CreateOrder"
+                   class="btn btn-danger align-content-center justify-content-center p-3 m-3"
+                   style="accent-color:initial; width:200px; height:200px;">
+                    Add Order
+                </a>
+            </div>
 
-        <div class="containerDisplayIncome">
-            <a asp-controller="Budget" asp-action="DailyIncome"
-               class="btn btn-danger align-content-center justify-content-center p-3 m-3"
-               style="accent-color:initial; width:300px; height:100px;">
-               Show Daily Income
-            </a>
+            <div class="containerDisplayIncome">
+                <a asp-controller="Budget" asp-action="DailyIncome"
+                   class="btn btn-danger align-content-center justify-content-center p-3 m-3"
+                   style="accent-color:initial; width:300px; height:100px;">
+                    Show Daily Income
+                </a>
+            </div>
         </div>
+
+        
         
     </div>
     

@@ -34,22 +34,31 @@ body {
     height: inherit;
     width: 250px;
     align-self: flex-start;
+
+    
 }
 
 .containerForButton {
     display: flex;
     height: 400px;
-    align-content: center;
-    align-items:center;
+    box-sizing:border-box;
     margin-block-start: 40px;
 }
 
-.containerForButton .containerAddOrderButton {
-    display: flex;
-    justify-self: center;
-    justify-content: center;
-    flex-grow: 1;
+.containerForButton #buttonsOrder {
+    display:block;
+    position:center;
+    flex-direction: column;
+    align-items: center; /* Center buttons horizontally */
+    align-self:center;
+    justify-content: center; /* Center buttons vertically */
+    justify-self:center;
+    justify-items:center;
+    width:auto;
+    height: auto;
 }
+
+
 
 /*Stylization for _ChefsListDisplay partial view*/
 .containerPartialChef #chefNameId{
