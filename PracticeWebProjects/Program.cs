@@ -1,5 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using PracticeWebProjects;
+using PracticeWebProjects.CustomModelBinders;
+using PracticeWebProjects.CustomModelBinders.CustomModelBinderProviders;
 using PracticeWebProjects.Data;
 using PracticeWebProjects.Services;
 
@@ -13,7 +16,10 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+    options.ModelBinderProviders.Insert(0, new CustomDateTimeModelBinderProvider(DataValidatingClass.saleDateFormat));
+});
 builder.Services.AddScoped<ChefService>();
 builder.Services.AddScoped<SalesService>();
 builder.Services.AddScoped<BudgetService>();
