@@ -44,6 +44,31 @@ namespace PracticeWebProjects.Controllers
             return View("DailyIncomeResult",model);
         }
 
+        [HttpGet]
+        public IActionResult MonthlyIncome()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult MonthlyIncome([ModelBinder(BinderType = typeof(CustomDateTimeModelBinder))] DateTime date)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var income = budgetService.GetMonthlyIncome(date.Year, date.Month);
+
+            var model = new SalesIncomeDisplayViewModel()
+            {
+                TransactionDate = date,
+                Income = income,
+            };
+
+            return View("MonthlyIncomeResult", model);
+        }
+
         public IActionResult Index()
         {
             return View();
