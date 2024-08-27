@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PracticeWebProjects.CustomModelBinders;
 using PracticeWebProjects.Data;
 using PracticeWebProjects.Models;
 using PracticeWebProjects.Services;
@@ -25,27 +26,18 @@ namespace PracticeWebProjects.Controllers
         }
 
         [HttpPost]
-        public IActionResult DailyIncome(string date)
+        public IActionResult DailyIncome([ModelBinder(BinderType = typeof(CustomDateTimeModelBinder))] DateTime date)
         {
-            DateTime transactionDate;
-
-            if (!DateTime.TryParseExact(
-                date, 
-                DataValidatingClass.saleDateFormat,
-                CultureInfo.InvariantCulture,
-                DateTimeStyles.None,
-                out transactionDate))
+            if (!ModelState.IsValid)
             {
-                ModelState.AddModelError(date, 
-                    $"Date is not in the correct format. Format must be {DataValidatingClass.saleDateFormat}");
                 return View();
             }
 
-            var income = budgetService.GetDailyIncome(transactionDate);
+            var income = budgetService.GetDailyIncome(date);
 
             var model = new SalesIncomeDisplayViewModel()
             {
-                TransactionDate = transactionDate,
+                TransactionDate = date,
                 Income = income,
             };
 

@@ -1,4 +1,6 @@
-﻿using PracticeWebProjects.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using PracticeWebProjects.CustomModelBinders;
+using PracticeWebProjects.Data;
 
 namespace PracticeWebProjects.Services
 {
@@ -11,7 +13,7 @@ namespace PracticeWebProjects.Services
             context = _context;
         }
 
-        public decimal GetDailyIncome(DateTime date)
+        public decimal GetDailyIncome([ModelBinder(BinderType = typeof(CustomDateTimeModelBinder))] DateTime date)
         {
             var startOfDay = date.Date;
             var endOfDay = date.AddDays(1).AddTicks(-1);
