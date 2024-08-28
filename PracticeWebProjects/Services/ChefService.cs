@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PracticeWebProjects.Data;
+using PracticeWebProjects.Data.Models;
 using PracticeWebProjects.Models;
 
 namespace PracticeWebProjects.Services
@@ -24,6 +25,21 @@ namespace PracticeWebProjects.Services
                 })
                 .AsNoTracking()
                 .ToListAsync();
+        }
+
+        public async Task CreateChefAsync(ChefsDisplayViewModel chefToAdd)
+        {
+            Chef chef = new Chef
+            {
+                Id = chefToAdd.Id,
+                Name = chefToAdd.Name,
+                Age = chefToAdd.Age,
+                Salary = chefToAdd.Salary,
+            };
+
+            context.Chefs.Add(chef);
+            await context.SaveChangesAsync();
+
         }
     }
 }

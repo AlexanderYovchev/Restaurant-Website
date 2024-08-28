@@ -26,6 +26,31 @@ namespace PracticeWebProjects.Controllers
 
             return PartialView("_ChefsListDisplay", model);
         }
+
+        [HttpGet]
+        public IActionResult CreateChef()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> CreateChef(ChefsDisplayViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            if (context.Chefs.Any(c => c.Id == model.Id && c.Name == model.Name))
+            {
+                ModelState.AddModelError("InvalidChefError", "Chef already exist!");
+            }
+
+            await chefService.CreateChefAsync(model);
+
+            return RedirectToAction(nameof(Index), nameof(HomeController));
+        }
+
+
         public IActionResult Index()
         {
             return View();

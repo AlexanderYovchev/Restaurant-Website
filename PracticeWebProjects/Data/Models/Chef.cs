@@ -23,8 +23,6 @@ namespace PracticeWebProjects.Data.Models
         [Range(chefMinSalary, chefMaxSalary)]
         public int Salary { get; set; }
 
-
-
         public ICollection<DishChef> DishChefs { get; set; } = new List<DishChef>();
     }
 }
