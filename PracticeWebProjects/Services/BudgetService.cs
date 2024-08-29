@@ -20,7 +20,7 @@ namespace PracticeWebProjects.Services
 
             return context.Sales
                 .Where(s => s.TransactionDate >= startOfDay && s.TransactionDate <= endOfDay)
-                .Sum(s => s.Dish.Cost);
+                .Sum(s => s.Income);
         }
 
         public decimal GetMonthlyIncome(int year, int month)
@@ -32,7 +32,7 @@ namespace PracticeWebProjects.Services
             //Calculating the income for the month
             var totalIncome = context.Sales
                 .Where(s => s.TransactionDate >= startOfMonth && s.TransactionDate <= endOfMonth)
-                .Sum(s => s.Dish.Cost);
+                .Sum(s => s.Income);
 
             //Calculating the expenses for the month
             var totalExpenses = context.Chefs.Sum(c => c.Salary);

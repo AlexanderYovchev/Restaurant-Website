@@ -133,8 +133,8 @@ namespace PracticeWebProjects.Controllers
 
             Sale sale = new Sale()
             {
-                DishId = order.Id,
                 TransactionDate = DateTime.Now,
+                Income = order.Cost
             };
 
             context.Sales.Add(sale);

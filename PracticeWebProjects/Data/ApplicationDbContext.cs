@@ -30,6 +30,10 @@ namespace PracticeWebProjects.Data
             .Property(d => d.Cost)
             .HasColumnType("decimal(12,2)");
 
+            builder.Entity<Sale>()
+            .Property(s => s.Income)
+            .HasColumnType("decimal(9,2)");
+
             builder.Entity<DishType>()
                 .HasData(new DishType()
                 {

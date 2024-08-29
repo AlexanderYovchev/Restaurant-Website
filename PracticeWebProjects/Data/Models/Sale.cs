@@ -13,8 +13,7 @@ namespace PracticeWebProjects.Data.Models
         public int DishId { get; set; }
 
         [Required]
-        [ForeignKey(nameof(DishId))]
-        public virtual Dish Dish { get; set; } = null!;
+        public decimal Income { get; set; }
 
         public DateTime TransactionDate { get; set; }
 
