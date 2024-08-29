@@ -40,9 +40,10 @@ namespace PracticeWebProjects.Controllers
                 return View(model);
             }
 
-            if (context.Chefs.Any(c => c.Id == model.Id && c.Name == model.Name))
+            if (context.Chefs.Any(c => c.Name == model.Name))
             {
                 ModelState.AddModelError("InvalidChefError", "Chef already exist!");
+                return View();
             }
 
             await chefService.CreateChefAsync(model);

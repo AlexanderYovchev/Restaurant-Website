@@ -4,4 +4,28 @@
     ViewBag.Title = "Chef Registration Form";
 }
 
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="~/css/CreateChefForm.css" />
+}
 
+
+<div class="text-center">
+    <h1 class="display-4">@ViewBag.Title</h1>
+</div>
+
+<form class="CreateChefFormClass" method="post" asp-action="CreateChef">
+    <label>First Name/Last Name</label>
+    <input class="form-control" type="text" placeholder="Name" asp-for="Name" />
+
+    <label>Age</label>
+    <input class="form-control" type="number" placeholder=15 asp-for="Age" />
+
+    <label>Salary</label>
+    <input class="form-control" type="number" placeholder=1500 asp-for="Salary" />
+
+    <div class="buttonsContainer mt-4 shadow-sm">
+        <button class="btn btn-primary" type="submit">Create</button>
+        <button class="btn btn-primary" type="reset">Reset</button>
+    </div>
+    
+</form>

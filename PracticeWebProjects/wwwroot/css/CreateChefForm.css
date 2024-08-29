@@ -1,0 +1,38 @@
+﻿
+
+.container {
+    /*border stylization*/
+    border-left:thick;
+    border-left-color:black;
+    border-right:thick;
+    border-right-color:black;
+    border-radius:10%;
+
+
+    background-color:orange;
+}
+
+/*Title of the form*/
+.text-center {
+    margin-bottom:50px;
+
+    /*border stylization*/
+    border-color:black;
+    border-block:inset;
+    border-block-start-color:aqua;
+    border-block-end-color:pink;
+
+    /*background stylization*/
+    background:linear-gradient(to bottom, aquamarine, lightpink);
+}
+
+/*Container of the form*/
+.CreateChefFormClass {
+    gap:initial;
+    background-color:orange;
+}
+
+/*Form fields*/
+.form-control {
+    
+}

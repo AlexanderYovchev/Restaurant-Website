@@ -31,7 +31,6 @@ namespace PracticeWebProjects.Services
         {
             Chef chef = new Chef
             {
-                Id = chefToAdd.Id,
                 Name = chefToAdd.Name,
                 Age = chefToAdd.Age,
                 Salary = chefToAdd.Salary,
