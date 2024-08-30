@@ -7,11 +7,7 @@ body {
     background-size:cover;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
+
 
 html {
   position: relative;
@@ -21,6 +17,8 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+
 
 /*Stylization for Home page view*/
 .containerChefsListDisplay {
@@ -80,4 +78,8 @@ body {
     background-color:aqua;
     border:groove;
     border-color:darkblue;
+}
+
+footer {
+    position:page;
 }
