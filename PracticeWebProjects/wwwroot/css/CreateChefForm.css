@@ -1,4 +1,4 @@
-﻿
+﻿@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
 
 .container {
     /*border stylization*/
@@ -12,7 +12,7 @@
     background-color:orange;
 }
 
-/*Title of the form*/
+/*Container of the title of the form*/
 .text-center {
     margin-bottom:50px;
 
@@ -26,10 +26,64 @@
     background:linear-gradient(to bottom, aquamarine, lightpink);
 }
 
+/*Title of the form*/
+h1 {
+    font-family: 'Bangers', cursive;
+    font-size: 100px;
+    color: #ff0057;
+    position: relative;
+    text-shadow: 2px 2px 0 #000, 4px 4px 0 #ff00ff, 6px 6px 0 #000, 8px 8px 0 #ff00ff, 10px 10px 0 #000, 12px 12px 10px rgba(0, 0, 0, 0.5);
+    animation: flicker 2s infinite alternate;
+}
+
+h1::before {
+    content: '';
+    position: absolute;
+    top: -30px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, rgba(255, 69, 0, 0.8), rgba(255, 0, 0, 0));
+    filter: blur(20px);
+    opacity: 0.6;
+    z-index: -1;
+    animation: flames 2s infinite alternate ease-in-out;
+}
+
+@keyframes flames {
+    0% {
+        transform: scaleY(1) translateY(0);
+    }
+
+    50% {
+        transform: scaleY(1.2) translateY(-10px);
+    }
+
+    100% {
+        transform: scaleY(1) translateY(0);
+    }
+}
+
+@keyframes flicker {
+    0%, 100% {
+        text-shadow: 2px 2px 0 #000, 4px 4px 0 #ff00ff, 6px 6px 0 #000, 8px 8px 0 #ff00ff, 10px 10px 0 #000, 12px 12px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    50% {
+        text-shadow: 2px 2px 0 #000, 4px 4px 0 #ff5500, 6px 6px 0 #000, 8px 8px 0 #ff5500, 10px 10px 0 #000, 12px 12px 20px rgba(0, 0, 0, 0.7);
+    }
+}
+
 /*Container of the form*/
 .CreateChefFormClass {
     gap:initial;
     background-color:orange;
+}
+
+/*Label text of the fields*/
+.CreateChefFormClass #labelId {
+    font-size:20px;
+    font-display:swap;
 }
 
 /*Form fields*/
