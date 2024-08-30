@@ -1,26 +1,28 @@
 ﻿@model IEnumerable<ChefsDisplayViewModel>
-
+<div class="chefs-list-container">
     <form asp-controller="Chef" asp-action="ChefsList" method="get">
-    @{
-        foreach (var chef in Model)
-        {
-            <div class="containerPartialChef">
-                <section id="chefNameId">@($"{chef.Id}: {chef.Name}")</section>
-                <br />
-                <span id="chefInfo">@($"Age: {chef.Age}")</span>
-            </div>
+        @{
+            foreach (var chef in Model)
+            {
+                <div class="containerPartialChef">
+                    <section id="chefNameId">@($"{chef.Id}: {chef.Name}")</section>
+                    <br />
+                    <span id="chefInfo">@($"Age: {chef.Age}")</span>
+                </div>
 
-            <hr />
+                <hr />
+            }
+
+            <div id="createChefButton">
+                <a asp-controller="Chef" asp-action="CreateChef"
+                   class="btn btn-danger align-content-center justify-content-center p-3 m-3"
+                   style="accent-color:initial; width:200px; height:100px; border:solid; border-color:black;">
+                    Create Chef
+                </a>
+            </div>
         }
 
-        <div id="createChefButton">
-            <a asp-controller="Chef" asp-action="CreateChef"
-               class="btn btn-danger align-content-center justify-content-center p-3 m-3"
-               style="accent-color:initial; width:200px; height:100px; border:solid; border-color:black;">
-                Create Chef
-            </a>
-        </div>
-    }
-
     </form>
+</div>
+    
     
