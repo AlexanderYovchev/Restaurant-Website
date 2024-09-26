@@ -22,6 +22,8 @@ namespace PracticeWebProjects.Data
 
         public DbSet<Sale> Sales { get; set; }
 
+        public DbSet<ServingTable> ServingTables { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<DishChef>().HasKey(dc => new { dc.ChefId, dc.DishId });
@@ -32,6 +34,10 @@ namespace PracticeWebProjects.Data
 
             builder.Entity<Sale>()
             .Property(s => s.Income)
+            .HasColumnType("decimal(9,2)");
+
+            builder.Entity<ServingTable>()
+            .Property(t => t.TotalIncome)
             .HasColumnType("decimal(9,2)");
 
             builder.Entity<DishType>()
@@ -64,7 +70,72 @@ namespace PracticeWebProjects.Data
                     Id = 5,
                     Name = "Beverage"
                 }
-                ); 
+                );
+
+            builder.Entity<ServingTable>()
+                .HasData(new ServingTable()
+                {
+                    Id = 1,
+                    isReserved = false,
+                    isTaken = false
+                },
+                
+                new ServingTable()
+                {
+                    Id = 2,
+                    isReserved = false,
+                    isTaken = false
+                },
+
+                new ServingTable()
+                {
+                    Id = 3,
+                    isReserved = false,
+                    isTaken = false
+                },
+
+                new ServingTable()
+                {
+                    Id = 4,
+                    isReserved = false,
+                    isTaken = false
+                },
+
+                new ServingTable()
+                {
+                    Id = 5,
+                    isReserved = false,
+                    isTaken = false
+                },
+
+                new ServingTable()
+                {
+                    Id = 6,
+                    isReserved = false,
+                    isTaken = false
+                },
+
+                new ServingTable()
+                {
+                    Id = 7,
+                    isReserved = false,
+                    isTaken = false
+                },
+
+                new ServingTable()
+                {
+                    Id = 8,
+                    isReserved = false,
+                    isTaken = false
+                },
+
+                new ServingTable()
+                {
+                    Id = 9,
+                    isReserved = false,
+                    isTaken = false
+                }
+                );
 
             
 

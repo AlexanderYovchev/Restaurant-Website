@@ -25,6 +25,13 @@ namespace PracticeWebProjects.Data.Models
         public DishType DishType { get; set; } = null!;
 
         [Required]
+        public int ServingTableId { get; set; }
+
+        [Required]
+        [ForeignKey(nameof(ServingTableId))]
+        public ServingTable ServingTable { get; set; } = null!;
+
+        [Required]
         public bool IsServed { get; set; } = false;
 
         public ICollection<DishChef> DishChefs { get; set; } = new List<DishChef>();
