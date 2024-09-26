@@ -50,6 +50,7 @@ namespace PracticeWebProjects.Controllers
 
             ViewData["DishTypes"] = new SelectList(context.DishTypes, "Id", "Name");
             ViewData["Chefs"] = new SelectList(model.DishChefs, "ChefId", "ChefName");
+            ViewData["ServingTables"] = new SelectList(GetTakenServingTables(), "Id", "Id");
             return View(model);
         }
 
@@ -57,6 +58,8 @@ namespace PracticeWebProjects.Controllers
         public async Task<IActionResult> CreateOrder(DishFromViewModel model)
         {
             var dishType = await context.DishTypes.FindAsync(model.DishTypeId);
+            var tableId = await context.ServingTables.FindAsync(model.ServingTableId);
+
             if (dishType != null)
             {
                 model.DishType = dishType.Name;
@@ -64,6 +67,15 @@ namespace PracticeWebProjects.Controllers
             else
             {
                 ModelState.AddModelError("DishTypeId", "Invalid Dish Type");
+            }
+
+            if (tableId != null && tableId.isTaken == true)
+            {
+                model.ServingTableId = tableId.Id;
+            }
+            else
+            {
+                ModelState.AddModelError("ServingTableId", "Dishes cannot be served to empty or reserved table");
             }
 
 
@@ -77,6 +89,7 @@ namespace PracticeWebProjects.Controllers
 
                 ViewData["DishTypes"] = new SelectList(context.DishTypes, "Id", "Name", model.DishTypeId);
                 ViewData["Chefs"] = new SelectList(context.Chefs, "Id", "Name", model.SelectedChefIds);
+                ViewData["ServingTables"] = new SelectList(context.ServingTables, "Id", "Number", model.ServingTableId);
             }
 
             if (ModelState.IsValid)
@@ -85,6 +98,7 @@ namespace PracticeWebProjects.Controllers
                 {
                     Name = model.Name,
                     DishTypeId = model.DishTypeId,
+                    ServingTableId = model.ServingTableId,
                     Cost = model.Cost,
                     IsServed = model.IsServed,
                     DishChefs = new List<DishChef>()
@@ -112,6 +126,7 @@ namespace PracticeWebProjects.Controllers
 
             ViewData["DishTypes"] = new SelectList(GetDishTypes(), "Id", "Name", model.DishTypeId);
             ViewData["Chefs"] = new SelectList(context.Chefs, "Id", "Name", model.SelectedChefIds);
+            ViewData["ServingTables"] = new SelectList(GetTakenServingTables(), "Id", "Number", model.ServingTableId);
             return View(model);
 
         }
@@ -243,6 +258,21 @@ namespace PracticeWebProjects.Controllers
             }).ToList();
 
             return dishTypes;
+        }
+
+        private IList<ServingTableViewModel> GetTakenServingTables()
+        {
+            var servingTables = context.ServingTables
+                .Where(t => t.isTaken == true)
+                .Select(d => new ServingTableViewModel()
+            {
+                Id = d.Id,
+                isTaken = d.isTaken,
+                isReserved = d.isReserved,
+
+            }).ToList();
+
+            return servingTables;
         }
 
 

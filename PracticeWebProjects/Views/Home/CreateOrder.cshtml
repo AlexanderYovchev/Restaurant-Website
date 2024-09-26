@@ -37,6 +37,14 @@
             </div>
 
             <div class="form-group">
+                @Html.LabelFor(model => model.ServingTableId, "Table Id", new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.ServingTableId, (SelectList)ViewData["ServingTables"], "Select Table", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.ServingTableId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
                 @Html.LabelFor(model => model.SelectedChefIds, "Chefs", new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.ListBoxFor(model => model.SelectedChefIds, (SelectList)ViewData["Chefs"], new { @class = "form-control" })
