@@ -136,6 +136,7 @@ namespace PracticeWebProjects.Controllers
         {
             var order = await context.Dishes.
                 Where(d => d.Id == id)
+                .Include(d => d.ServingTable)
                 .Include(dc => dc.DishChefs)
                 .FirstOrDefaultAsync();
 
@@ -145,6 +146,7 @@ namespace PracticeWebProjects.Controllers
             }
 
             order.IsServed = true;
+            order.ServingTable.TotalIncome += order.Cost;
 
             Sale sale = new Sale()
             {

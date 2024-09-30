@@ -1,0 +1,40 @@
+﻿
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px; 
+}
+
+.table-button
+{
+    width: 100px;
+    height: 100px;
+    font-size: 18px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.empty {
+    background-color: white;
+    color: black;
+}
+
+.reserved {
+    background-color: orange;
+}
+
+.taken {
+    background-color: green;
+}
+
+#confirmButton {
+    width: 200px;
+    height: 100px;
+    border: initial;
+    border-color: black;
+    border-width: 4px;
+    border-radius: 20px;
+}
+

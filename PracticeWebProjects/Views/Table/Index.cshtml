@@ -1,5 +1,19 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model IEnumerable<ServingTableViewModel>
+
+@section Styles {
+    <link rel="stylesheet" type="text/css" href="~/css/tableStyle.css" />
 }
+
+<div id="tables-container" class="grid-container">
+    @foreach (var table in Model)
+    {
+        var tableStatusClass = table.isTaken ? "taken" : (table.isReserved ? "reserved" : "empty");
+        <button id="table-@table.Id" class="table-button @tableStatusClass" onclick="toggleTableState(@table.Id)">
+            Table @table.Id
+        </button>
+    }
+</div>
+
+<button id="confirmButton" onclick="confirmTableStates()">Confirm Changes</button>
+
+<script src="~/js/TableManagementScript.js"></script>
