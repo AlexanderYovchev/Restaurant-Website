@@ -20,11 +20,24 @@ namespace PracticeWebProjects.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ChefsList()
+        public async Task<IActionResult> ChefsList(int pg = 1)
         {
             var model = await chefService.GetChefsAsync();
+            const int pageSize = 4;
+            if (pg < 1)
+            {
+                pg = 1;
+            }
+            
+            int recsCount = model.Count();
+            var pager = new Pager(recsCount, pg, pageSize);
+            int recSkip = (int)(pg - 1) * pageSize;
+            var data = model.Skip(recSkip).Take(pager.PageSize).ToList();
 
-            return PartialView("_ChefsListDisplay", model);
+            ViewData["Pager"] = pager;
+
+
+            return RedirectToAction("Index", "Home", new { chefs = data, pg });
         }
 
         [HttpGet]
@@ -48,7 +61,7 @@ namespace PracticeWebProjects.Controllers
 
             await chefService.CreateChefAsync(model);
 
-            return RedirectToAction(nameof(Index), nameof(HomeController));
+            return RedirectToAction(nameof(Index), "Home");
         }
 
 

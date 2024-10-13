@@ -1,4 +1,8 @@
 ﻿@model IEnumerable<ChefsDisplayViewModel>
+@{
+    Pager pager = (Pager)ViewData["Pager"];
+}
+
 <div class="chefs-list-container">
     <form asp-controller="Chef" asp-action="ChefsList" method="get">
         @{
@@ -12,6 +16,20 @@
 
                 <hr />
             }
+
+            <div class="pageBar">
+                @if (pager != null && pager.TotalPages > 0)
+                {
+                    <ul class="pagination justify-content-center">
+                        @for (int pge = pager.StartPage; pge <= pager.EndPage; pge++)
+                        {
+                            <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
+                                <a class="page-link" asp-controller="Chef" asp-action="ChefsList" asp-route-pg="@pge"> @pge></a>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
 
             <div id="createChefButton">
                 <a asp-controller="Chef" asp-action="CreateChef"

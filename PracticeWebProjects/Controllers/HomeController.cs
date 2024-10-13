@@ -24,10 +24,24 @@ namespace PracticeWebProjects.Controllers
             chefService = _chefService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pg = 1)
         {
             var model = await chefService.GetChefsAsync();
-            return View(model);
+
+            const int pageSize = 4;
+            if (pg < 1)
+            {
+                pg = 1;
+            }
+
+            int recsCount = model.Count();
+            var pager = new Pager(recsCount, pg, pageSize);
+            int recSkip = (pg - 1) * pageSize;
+            var paginatedData = model.Skip(recSkip).Take(pageSize).ToList();
+
+            ViewData["Pager"] = pager; 
+
+            return View(paginatedData);
         }
 
         public IActionResult Privacy()
