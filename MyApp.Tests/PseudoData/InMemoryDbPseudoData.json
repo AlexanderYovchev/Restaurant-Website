@@ -1,0 +1,61 @@
+{
+  "Chefs": [
+    {
+      "Id": 1,
+      "Name": "ChefA",
+      "Age": 20,
+      "Salary": 2000,
+      "DishChefs": [
+        { "DishId": 1 },
+        { "DishId": 2 }
+      ]
+    },
+    {
+      "Id": 2,
+      "Name": "ChefB",
+      "Age": 18,
+      "Salary": 1800,
+      "DishChefs": [
+        { "DishId": 2 }
+      ]
+    },
+    {
+      "Id": 3,
+      "Name": "ChefC",
+      "Age": 23,
+      "Salary": 2300,
+      "DishChefs": [
+        { "DishId": 1 }
+      ]
+    }
+  ],
+
+  "Dishes": [
+    {
+      "Id": 1,
+      "Name": "Shopska Salad",
+      "Cost": 10.20,
+      "DishTypeId": 1,
+      "ServingTableId": 3,
+      "IsServed": false
+    },
+    {
+      "Id": 2,
+      "Name": "Beef Steak",
+      "Cost": 15.20,
+      "DishTypeId": 2,
+      "ServingTableId": 3,
+      "IsServed": false
+    },
+    {
+      "Id": 3,
+      "Name": "Beer",
+      "Cost": 10.20,
+      "DishTypeId": 5,
+      "ServingTableId": 4,
+      "IsServed": false
+    }
+  ],
+
+  
+}
