@@ -10,6 +10,9 @@ namespace PracticeWebProjects.Models
         public int Id { get; set; }
 
         [Required]
+        public int DishId { get; set; }
+
+        [Required]
         public DateTime TransactionDate { get; set; }
 
         [Required]

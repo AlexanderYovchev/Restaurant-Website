@@ -1,6 +1,8 @@
 ﻿
 using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
@@ -174,5 +176,201 @@ namespace MyApp.Tests.ControllerTests
             Assert.That(redirectResult, Is.Not.Null);
             Assert.That(redirectResult.ActionName, Is.EqualTo(nameof(HomeController.AwaitingOrders)));
         }
+
+        [Test]
+        public async Task Edit_POST_ReturnsViewModelWithData()
+        {
+            int id = 1;
+            var order = await context.Dishes.
+                Where(d => d.Id == id)
+                .Include(d => d.ServingTable)
+                .Include(dc => dc.DishChefs)
+                .FirstOrDefaultAsync();
+
+            Assert.That(order, Is.Not.Null);
+            Assert.That(order.IsServed, Is.False);
+
+            var result = controller.Edit(id);
+            var viewResult = await result as RedirectToActionResult;
+
+            Assert.That(viewResult, Is.Not.Null);
+            Assert.That(viewResult.ActionName, Is.EqualTo(nameof(HomeController.ServedOrders)));
+
+            order.IsServed = true;
+            order.ServingTable.TotalIncome += order.Cost;
+
+            var sale = new Sale
+            {
+                TransactionDate = DateTime.Now,
+                Income = order.Cost
+            };
+
+            Assert.That(sale, Is.Not.Null);
+
+            context.Sales.Add(sale);
+
+            await context.SaveChangesAsync();
+
+            Assert.That(context.Sales.Count, Is.GreaterThan(0));
+
+        }
+
+        [Test]
+        public async Task Edit_POST_ReturnErrorWithInvalidData()
+        {
+            int id = 56;
+            var order = await context.Dishes.
+                Where(d => d.Id == id)
+                .Include(d => d.ServingTable)
+                .Include(dc => dc.DishChefs)
+                .FirstOrDefaultAsync();
+
+            var result = await controller.Edit(id);
+            var badRequestResult = result as BadRequestResult;
+
+            Assert.That(order, Is.Null);
+            Assert.That(badRequestResult.StatusCode, Is.EqualTo(StatusCodes.Status400BadRequest));
+
+            var servedOrder = new Dish
+            {
+                Id = 56,
+                IsServed = true,
+                Cost = 100,
+                ServingTable = new ServingTable { TotalIncome = 0 },
+                DishChefs = new List<DishChef>()
+            };
+            servedOrder.IsServed = true;
+            result = await controller.Edit(56);
+            
+            badRequestResult = result as BadRequestResult;
+
+            Assert.That(badRequestResult.StatusCode, Is.EqualTo(StatusCodes.Status400BadRequest));
+            
+        }
+
+        [Test]
+        public async Task RemoveAwaitingOrder_POST_ReturnActionResultWithChangedContext()
+        {
+            int dishId = 1;
+            var newDIsh = new Dish
+            {
+                Id = dishId,
+                Name = "Shopska Salad",
+                Cost = 10.20m,
+                DishTypeId = 1,
+                ServingTableId = 3,
+                IsServed = false
+            };
+
+            var result = await controller.RemoveAwaitingOrder(dishId);
+
+            var actionResult = result as RedirectToActionResult;
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(actionResult.ActionName, Is.EqualTo(nameof(HomeController.AwaitingOrders)));
+
+            var dish = await context.Dishes.FirstOrDefaultAsync(d => d.Id == dishId);
+            Assert.That(dish, Is.Null);
+        }
+
+        [Test]
+        public async Task RemoveAwaitingOrder_POST_ReturnErrorWithInvalidData()
+        {
+            int dishId = 56;
+            var result = await controller.RemoveAwaitingOrder(dishId);
+            var badRequestResult = result as BadRequestResult;
+
+            Assert.That(badRequestResult.StatusCode, Is.EqualTo(StatusCodes.Status400BadRequest));
+
+            var newDIsh = new Dish
+            {
+                Id = dishId,
+                Name = "Shopska Salad",
+                Cost = 10.20m,
+                DishTypeId = 1,
+                ServingTableId = 3,
+                IsServed = true
+            };
+
+            result = await controller.RemoveAwaitingOrder(dishId);
+            badRequestResult = result as BadRequestResult;
+
+            Assert.That(badRequestResult.StatusCode, Is.EqualTo(StatusCodes.Status400BadRequest));
+        }
+
+        [Test]
+        public async Task DeleteServedOrders_POST_ReturnActionResultWithChangedContext()
+        {
+            int dishId = 1;
+
+            List<Dish> dishesToInsert = new List<Dish>()
+            {
+                new Dish
+                {
+                    Id = 30,
+                    Name = "Shopska Salad",
+                    Cost = 10.20m,
+                    DishTypeId = 1,
+                    ServingTableId = 3,
+                    IsServed = true
+                },
+                new Dish
+                {
+                    Id = 31,
+                    Name = "Shopska Salad2",
+                    Cost = 10.20m,
+                    DishTypeId = 1,
+                    ServingTableId = 3,
+                    IsServed = true
+                },
+                new Dish
+                {
+                    Id = 32,
+                    Name = "Shopska Salad3",
+                    Cost = 10.20m,
+                    DishTypeId = 1,
+                    ServingTableId = 3,
+                    IsServed = true
+                }
+                
+            };
+
+            context.AddRange(dishesToInsert);
+            context.SaveChanges();
+
+            var insertedDishes = context.Dishes.Where(d => d.Id >= 30 && d.Id <= 32).Take(3).ToList();
+
+            Assert.Multiple(() =>
+            {
+                for (int i = 0; i <= 2; i++)
+                {
+                    Assert.That(insertedDishes[i].IsServed, Is.True);
+                }
+            });
+
+            var result = await controller.DeleteServedOrders();
+
+            var actionResult = result as RedirectToActionResult;
+
+            Assert.That(actionResult.ActionName, Is.EqualTo(nameof(HomeController.ServedOrders)));
+
+            bool containsServedOrders = context.Dishes.Any(d => d.IsServed == true);
+
+            Assert.That(containsServedOrders, Is.False);
+        }
+
+        [Test]
+        public async Task AwaitingOrders_GET_ReturnsViewWithProperData()
+        {
+            
+            var result = controller.AwaitingOrders();
+
+            var viewResult = await result as ViewResult;
+
+            Assert.That(viewResult, Is.Not.Null);
+            var model = viewResult.Model as IEnumerable<ServedDishesInfoViewModel>;
+            Assert.That(model, Is.Not.Null);
+            Assert.That(model.Count(), Is.GreaterThan(0));
+        } 
     }
 }

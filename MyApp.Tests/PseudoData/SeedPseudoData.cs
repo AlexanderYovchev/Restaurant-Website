@@ -18,5 +18,7 @@ namespace MyApp.Tests.PseudoData
         public List<DishType> DishTypes { get; set; }
 
         public List<ServingTable> ServingTables { get; set; }
+
+        public List<Sale> Sales { get; set; }
     }
 }

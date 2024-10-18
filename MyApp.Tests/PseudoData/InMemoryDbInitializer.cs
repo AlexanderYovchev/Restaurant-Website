@@ -24,7 +24,6 @@ namespace MyApp.Tests.PseudoData
 
                 context.Chefs.AddRange(seedData.Chefs);
                 context.Dishes.AddRange(seedData.Dishes);
-
                 
                 context.SaveChanges();
             }
